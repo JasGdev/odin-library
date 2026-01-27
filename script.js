@@ -1,16 +1,5 @@
-const myLibrary = [];
+var myLibrary = [];
 const display = document.querySelector(".display");
-
-
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
-addBookToLibrary("1984", "George Orwell", 328, false);
-addBookToLibrary("Clean Code", "Robert C. Martin", 464, true);
-addBookToLibrary("The Pragmatic Programmer", "Andrew Hunt & David Thomas", 352, false);
-displayBooks()
-
-
-
-
 
 function Book(title, author, pages, read) {
     if (!new.target) {
@@ -26,6 +15,21 @@ function Book(title, author, pages, read) {
             `${title} by ${author}, ${pages} pages, not read yet`;
     }
 }
+
+Book.prototype.toggleRead = function () {
+    this.read = this.read ? false : true;
+    displayBooks();
+}
+
+addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
+addBookToLibrary("1984", "George Orwell", 328, false);
+addBookToLibrary("Clean Code", "Robert C. Martin", 464, true);
+addBookToLibrary("The Pragmatic Programmer", "Andrew Hunt & David Thomas", 352, false);
+displayBooks()
+
+
+
+
 
 function addBookToLibrary(title, author, pages, read) {
     // take params, create a book then store it in the array
@@ -45,14 +49,59 @@ function displayBooks(){
         bookDisplayTitle.textContent = `${book.title}`;
         bookDisplay.appendChild(bookDisplayTitle)
 
+        const bookDisplayPages = document.createElement('p')
+        bookDisplayPages.classList.add('book-pages')
+        bookDisplayPages.textContent = `${book.pages}p read`;
+        bookDisplay.appendChild(bookDisplayPages)
+
+        const bookDisplayRead = document.createElement('p')
+        bookDisplayRead.classList.add('book-read')
+        bookDisplayRead.textContent = `read: ${book.read}`;
+        bookDisplay.appendChild(bookDisplayRead)
+        
+
         const bookDisplayAuthor = document.createElement('p')
         bookDisplayAuthor.classList.add('book-author')
         bookDisplayAuthor.textContent = `by ${book.author}`;
         bookDisplay.appendChild(bookDisplayAuthor)
+
+
         display.appendChild(bookDisplay)
+
+        //  Remove book button and Change read status button display
+        const btnDisplay = document.createElement('div');
+        btnDisplay.classList.add('btnDisplay')
+
+        const removeBtn = document.createElement('button');
+        removeBtn.classList.add('bookButton');  
+        removeBtn.textContent = "X";
+        removeBtn.setAttribute('id', book.id)
+
+
+        const changeStatusBtn = document.createElement('button');
+        changeStatusBtn.classList.add('bookButton');
+        changeStatusBtn.textContent = 'Read/Unread';
+
+        
+        
+        // remove button logic
+        removeBtn.addEventListener('click', () => removeBookByID(removeBtn.id));       
+
+        // change status logic
+        
+        changeStatusBtn.addEventListener('click', () => {
+            book.toggleRead()
+        });
+
+
+
+
+        btnDisplay.appendChild(removeBtn)
+        btnDisplay.appendChild(changeStatusBtn)
+        bookDisplay.appendChild(btnDisplay)
     }
 }
-s
+
 
 // Dialog Popup
 const dialog = document.querySelector("dialog");
@@ -82,4 +131,12 @@ form.addEventListener("submit", function(e){
     form.reset();
     dialog.close();
 })
+
+function removeBookByID(id){
+    myLibrary = myLibrary.filter(book => book.id !== id);
+    displayBooks();
+}
+
+
+
 

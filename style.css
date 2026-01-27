@@ -32,7 +32,7 @@
 
 .book {
     background-color: rgb(255, 255, 255);
-    height: 70px;
+    height: 150px;
     width: 100px;
     display: flex;
     flex-direction: column;
@@ -45,7 +45,9 @@
     text-align: center;
 }
 
-.book-author{
+.book-author,
+.book-pages,
+.book-read{
     font-size: 12px;
     text-align: center;
 }
@@ -56,6 +58,5 @@ dialog{
     height: 500px;
     width: 500px;
 }
-
 
 
