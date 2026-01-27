@@ -6,9 +6,11 @@ addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
 addBookToLibrary("1984", "George Orwell", 328, false);
 addBookToLibrary("Clean Code", "Robert C. Martin", 464, true);
 addBookToLibrary("The Pragmatic Programmer", "Andrew Hunt & David Thomas", 352, false);
-console.log(myLibrary)
-
 displayBooks()
+
+
+
+
 
 function Book(title, author, pages, read) {
     if (!new.target) {
@@ -33,6 +35,7 @@ function addBookToLibrary(title, author, pages, read) {
 
 // loops through the array and displays each book on the page
 function displayBooks(){
+    display.innerHTML = ''
     for (book of myLibrary){
         const bookDisplay = document.createElement('div')
         bookDisplay.classList.add('book')
@@ -49,9 +52,34 @@ function displayBooks(){
         display.appendChild(bookDisplay)
     }
 }
+s
 
-function newBookButton(){
-    
-}
+// Dialog Popup
+const dialog = document.querySelector("dialog");
+const showButton = document.querySelector("dialog + button");
+const closeButton = document.querySelector("dialog #dialog-close");
 
+showButton.addEventListener("click", () => {
+    dialog.showModal();
+});
+
+closeButton.addEventListener("click", () => {
+    dialog.close();
+});
+
+// Add Book Form
+const form = document.querySelector("#newBookForm");
+const submitButton = document.querySelector("dialog .submit")
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+    const title = form.title.value;
+    const author = form.author.value;
+    const pages = form.pages.value;
+    const read = form.read.checked;
+    addBookToLibrary(title, author, pages, read)
+    displayBooks();
+    form.reset();
+    dialog.close();
+})
 
