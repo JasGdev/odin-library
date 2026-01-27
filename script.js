@@ -7,12 +7,6 @@ addBookToLibrary("1984", "George Orwell", 328, false);
 addBookToLibrary("Clean Code", "Robert C. Martin", 464, true);
 addBookToLibrary("The Pragmatic Programmer", "Andrew Hunt & David Thomas", 352, false);
 
-const book = document.createElement('div')
-book.classList.add('book')
-book.textContent = "The Hobbit"
-display.appendChild(book)
-
-
 console.log(myLibrary)
 
 function Book(title, author, pages, read) {
@@ -36,8 +30,25 @@ function addBookToLibrary(title, author, pages, read) {
     myLibrary.push(newBook);
 }
 
+// loops through the array and displays each book on the page
 function displayBooks(){
-    
-    
+    for (book of myLibrary){
+        const bookDisplay = document.createElement('div')
+        bookDisplay.classList.add('book')
+
+        const bookDisplayTitle = document.createElement('h3')
+        bookDisplayTitle.classList.add('book-title')
+        bookDisplayTitle.textContent = `${book.title}`;
+        bookDisplay.appendChild(bookDisplayTitle)
+
+        const bookDisplayAuthor = document.createElement('p')
+        bookDisplayAuthor.classList.add('book-author')
+        bookDisplayAuthor.textContent = `by ${book.author}`;
+        bookDisplay.appendChild(bookDisplayAuthor)
+        display.appendChild(bookDisplay)
+    }
 }
 
+
+
+displayBooks()
