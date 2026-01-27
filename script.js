@@ -17,8 +17,8 @@ function Book(title, author, pages, read) {
 }
 
 Book.prototype.toggleRead = function () {
-    this.read = this.read ? false : true;
-    displayBooks();
+    console.log('read')
+    this.read = !this.read;
 }
 
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
@@ -75,22 +75,28 @@ function displayBooks(){
         const removeBtn = document.createElement('button');
         removeBtn.classList.add('bookButton');  
         removeBtn.textContent = "X";
-        removeBtn.setAttribute('id', book.id)
+        removeBtn.setAttribute('id', book.id);
 
 
         const changeStatusBtn = document.createElement('button');
         changeStatusBtn.classList.add('bookButton');
         changeStatusBtn.textContent = 'Read/Unread';
+        changeStatusBtn.setAttribute('id', book.id);
 
         
         
         // remove button logic
-        removeBtn.addEventListener('click', () => removeBookByID(removeBtn.id));       
+        removeBtn.addEventListener('click', () => {
+            removeBookByID(removeBtn.id)
+            displayBooks();
+        });       
 
         // change status logic
         
         changeStatusBtn.addEventListener('click', () => {
-            book.toggleRead()
+            let bookToChange = myLibrary.find(obj => obj.id === changeStatusBtn.id);
+            bookToChange.toggleRead();
+            displayBooks();
         });
 
 
@@ -134,8 +140,9 @@ form.addEventListener("submit", function(e){
 
 function removeBookByID(id){
     myLibrary = myLibrary.filter(book => book.id !== id);
-    displayBooks();
 }
+
+
 
 
 
