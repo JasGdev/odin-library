@@ -11,7 +11,36 @@
         <div class="display">
 
         </div>
-        <button class="newBook">Add New Book</button>
+
+        <dialog>
+            <form action="#" method="get" class="newBookForm" id="newBookForm">
+                <div class="title">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="author">
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" name="author" required>
+                </div>
+                <div class="pages">
+                    <label for="pages">Pages read:</label>
+                    <input type="number" id="pages" name="pages" required>
+                </div>
+                <div class="read">
+                    <label for="read">Read or Not:</label>
+                    <input type="checkbox" id="read" name="read" required>
+                </div>
+
+                <button type="submit">Add book</button>
+            </form>
+
+
+
+
+            <button id="dialog-close" autofocus>Close</button>
+        </dialog>
+        
+        <button class="newBookBtn">Add New Book</button>
     </div>
     
     <script src="script.js"></script>

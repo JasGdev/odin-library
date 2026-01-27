@@ -6,8 +6,9 @@ addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
 addBookToLibrary("1984", "George Orwell", 328, false);
 addBookToLibrary("Clean Code", "Robert C. Martin", 464, true);
 addBookToLibrary("The Pragmatic Programmer", "Andrew Hunt & David Thomas", 352, false);
-
 console.log(myLibrary)
+
+displayBooks()
 
 function Book(title, author, pages, read) {
     if (!new.target) {
@@ -49,6 +50,8 @@ function displayBooks(){
     }
 }
 
+function newBookButton(){
+    
+}
 
 
-displayBooks()
