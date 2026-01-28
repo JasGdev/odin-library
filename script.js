@@ -1,25 +1,44 @@
 var myLibrary = [];
 const display = document.querySelector(".display");
 
-function Book(title, author, pages, read) {
-    if (!new.target) {
-        throw Error("You must use the 'new' operator to call the constructor");
+
+class Book{
+    constructor(title, author, pages, read){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.id = crypto.randomUUID();
     }
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.id = crypto.randomUUID();
-    this.info = function () {
-        return this.read ? `${title} by ${author}, ${pages} pages, already read` :
-            `${title} by ${author}, ${pages} pages, not read yet`;
+
+    info() {
+        return this.read ? `${this.title} by ${this.author}, ${this.pages} pages, already read` :
+            `${this.title} by ${this.author}, ${this.pages} pages, not read yet`;
+    }
+    toggleRead() {
+        this.read = !this.read;
     }
 }
 
-Book.prototype.toggleRead = function () {
-    console.log('read')
-    this.read = !this.read;
-}
+// function Book(title, author, pages, read) {
+//     if (!new.target) {
+//         throw Error("You must use the 'new' operator to call the constructor");
+//     }
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.read = read;
+//     this.id = crypto.randomUUID();
+//     this.info = function () {
+//         return this.read ? `${title} by ${author}, ${pages} pages, already read` :
+//             `${title} by ${author}, ${pages} pages, not read yet`;
+//     }
+// }
+
+// Book.prototype.toggleRead = function () {
+//     console.log('read')
+//     this.read = !this.read;
+// }
 
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
 addBookToLibrary("1984", "George Orwell", 328, false);
@@ -40,7 +59,7 @@ function addBookToLibrary(title, author, pages, read) {
 // loops through the array and displays each book on the page
 function displayBooks(){
     display.innerHTML = ''
-    for (book of myLibrary){
+    for (const book of myLibrary){
         const bookDisplay = document.createElement('div')
         bookDisplay.classList.add('book')
 
