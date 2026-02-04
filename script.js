@@ -135,6 +135,7 @@ const closeButton = document.querySelector("dialog #dialog-close");
 
 showButton.addEventListener("click", () => {
     dialog.showModal();
+    formValidation();
 });
 
 closeButton.addEventListener("click", () => {
@@ -153,6 +154,20 @@ form.addEventListener("submit", function(e){
     const read = form.read.checked;
     addBookToLibrary(title, author, pages, read)
     displayBooks();
+
+    // custom form msg
+    const titleInput = document.querySelector('.titleInput');
+    const authorInput = document.querySelector('.authorInput');
+    const pagesInput = document.querySelector('.pagesInput');
+    const readInput = document.querySelector('.readInput');
+
+
+    if (!titleInput.checkValidity()){
+        titleInput.setCustomValidity("You have to enter a book name!")
+    }
+
+
+    
     form.reset();
     dialog.close();
 })
@@ -161,6 +176,21 @@ function removeBookByID(id){
     myLibrary = myLibrary.filter(book => book.id !== id);
 }
 
+// Form Validation
+
+function formValidation(){
+    const bookForm = document.querySelector('.newBookForm')
+    
+
+    // custom error message when the user tries to submit an empty form field 
+    // (e.g. “The author name must be filled!”
+    
+    bookForm.addEventListener('submit', function() {
+        
+
+    })
+    
+};
 
 
 
