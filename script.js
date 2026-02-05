@@ -135,7 +135,6 @@ const closeButton = document.querySelector("dialog #dialog-close");
 
 showButton.addEventListener("click", () => {
     dialog.showModal();
-    formValidation();
 });
 
 closeButton.addEventListener("click", () => {
@@ -147,50 +146,57 @@ const form = document.querySelector("#newBookForm");
 const submitButton = document.querySelector("dialog .submit")
 
 form.addEventListener("submit", function(e){
-    e.preventDefault();
     const title = form.title.value;
     const author = form.author.value;
     const pages = form.pages.value;
     const read = form.read.checked;
     addBookToLibrary(title, author, pages, read)
     displayBooks();
+    form.reset();
+    dialog.close();
+})
 
+submitButton.addEventListener('click', function() {
     // custom form msg
-    const titleInput = document.querySelector('.titleInput');
-    const authorInput = document.querySelector('.authorInput');
-    const pagesInput = document.querySelector('.pagesInput');
-    const readInput = document.querySelector('.readInput');
-
-
-    if (!titleInput.checkValidity()){
+    const titleInput = document.querySelector('#title');
+    const authorInput = document.querySelector('#author');
+    const pagesInput = document.querySelector('#pages');
+    const readInput = document.querySelector('#read');
+    
+    if (titleInput.validity.valueMissing){
         titleInput.setCustomValidity("You have to enter a book name!")
+    } else {
+        titleInput.setCustomValidity("");
     }
 
 
-    
-    form.reset();
-    dialog.close();
+    if (authorInput.validity.valueMissing){
+        authorInput.setCustomValidity("You have to enter an author name!")
+    } else {
+        authorInput.setCustomValidity("");
+    }
+
+    if (pagesInput.validity.valueMissing){
+        pagesInput.setCustomValidity("Please enter pages read!")
+    } else if (pagesInput.value < 0){
+        pagesInput.setCustomValidity("How can you read less than 0 pages?")
+    } else {
+        pagesInput.setCustomValidity("")
+    }
+
+    if (pagesInput.value > 0 && !readInput.checked) {
+        readInput.setCustomValidity(`So you read ${pagesInput.value} pages but you haven't read the book?`);
+    } else if (pagesInput.value == 0 && readInput.checked){
+        readInput.setCustomValidity(`So you read 0 pages but you read the book?`);
+    } else {
+        readInput.setCustomValidity(``);
+    }
 })
 
 function removeBookByID(id){
     myLibrary = myLibrary.filter(book => book.id !== id);
 }
 
-// Form Validation
-
-function formValidation(){
-    const bookForm = document.querySelector('.newBookForm')
-    
-
-    // custom error message when the user tries to submit an empty form field 
-    // (e.g. “The author name must be filled!”
-    
-    bookForm.addEventListener('submit', function() {
-        
-
-    })
-    
-};
 
 
 
